@@ -1,6 +1,6 @@
 class studs:
-    name = "nagendra anna"
-    occupation = "sns shop owner"
+    name = "vinay"
+    occupation = "developer"
     age = 28 
     def info(self):
         print(f"{self.name} is a {self.occupation}")
