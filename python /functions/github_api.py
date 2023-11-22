@@ -1,4 +1,4 @@
-import requests
+import requests #before using requests , install request using pip ex: pip install requests
 
 response = requests.get("https://api.github.com/repos/kubernetes/kubernetes/pulls")
 
