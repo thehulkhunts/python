@@ -40,7 +40,7 @@ def createJira():
              "version": 1
         },
         "project": {
-           "key": "KUBE"
+           "key": "KUB"
         },
         "issuetype": {
             "id": "10014"
