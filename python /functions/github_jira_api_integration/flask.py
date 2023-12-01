@@ -43,7 +43,7 @@ def createJira():
            "key": "AB"
         },
         "issuetype": {
-            "id": "10006"
+            "id": "10016"
         },
         "summary": "Main order flow broken",
     },
