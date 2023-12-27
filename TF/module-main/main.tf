@@ -20,6 +20,7 @@ module "eks-cluster" {
   subnet-02          = module.vpc.subnet-02
   eks-iam-role       = module.iam-roles.eks-cluster-iam-role
   eks-cluster-policy = module.iam-roles.eks-iam-policy-attachment
+  eks_cluster_name   = module.eks-cluster.eks-cluster
 
 }
 module "eks-nodegroup" {
