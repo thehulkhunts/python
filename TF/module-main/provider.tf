@@ -1,5 +1,4 @@
 provider "aws" {
-  profile = "vinay"
   region  = "ap-south-1"
   shared_credentials_files = ["/root/.aws/credentials"]
 }
