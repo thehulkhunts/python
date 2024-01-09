@@ -1,6 +1,6 @@
 provider "aws" {
   region                   = "ap-south-1"
-  profile                  =  "vnay" 
+  profile                  =  "vinay" 
 }
 
 terraform {
@@ -15,9 +15,9 @@ terraform {
 
 terraform {
   backend "s3" {
-    bucket = "viin-ultimate-bucket"
-    key = "EKS/terraform.tfstate"
-    region = "us-east-1"
-    dynamodb_table = "vin-ultimate-db"
+    bucket = "viin-ultimate-bucket"  // name of your bucket choice
+    key = "EKS/terraform.tfstate"   // key match to the path
+    region = "us-east-1"  //region
+    dynamodb_table = "vin-ultimate-db" // name of your dynamodb table 
   }
 }
