@@ -32,6 +32,7 @@ module "eks-nodegroup" {
   eks-nodegroup-policy   = module.iam-roles.eks-nodegroup-policy
   eks-cni                = module.iam-roles.eks-cni
   ec2-readonly           = module.iam-roles.ec2-readonly
+  depends_on             = [module.eks-cluster]
 
 }
 

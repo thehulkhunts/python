@@ -1,6 +1,6 @@
 provider "aws" {
-  region  = "ap-south-1"
-  shared_credentials_files = ["/root/.aws/credentials"]
+  region                   = "ap-south-1"
+  profile                  =  "vnay" 
 }
 
 terraform {
@@ -10,5 +10,14 @@ terraform {
       source  = "hashicorp/aws"
       version = ">=5.31.0"
     }
+  }
+}
+
+terraform {
+  backend "s3" {
+    bucket = "viin-ultimate-bucket"
+    key = "EKS/terraform.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "vin-ultimate-db"
   }
 }
