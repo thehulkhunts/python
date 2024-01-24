@@ -15,13 +15,12 @@ spec:
 # Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed either maximum value will be rejected.
 # In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively, a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PVCs where each has 2Gi. That would be 6Gi requested for a namespace capped at 5Gi.
 
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: restrcit-quota-of-pvc's
-  namespace: robot-shop
-spec:
-  hard:
-    persistentvolumeclaims: 5
-    requests.storage: 5Gi
+#---
+#apiVersion: v1
+#kind: ResourceQuota
+#metadata:
+ # name: restrcit-quota-of-pvc's
+  #namespace: robot-shop
+#spec:
+ ##  persistentvolumeclaims: 5
+   # requests.storage: 5Gi
