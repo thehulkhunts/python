@@ -6,10 +6,10 @@ metadata:
 spec:
   limits:
   - type: PersistentVolumeClaim
-  max:
-    storage: 5Gi
-  min:
-    storage: 1Gi
+    max:
+      storage: 5Gi
+    min:
+      storage: 1Gi
 
 # StorageQuota to limit PVC count and cumulative storage capacity 
 # Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed either maximum value will be rejected.
