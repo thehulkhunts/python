@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: configure-api-quotas
+  namespace: robot-shop
+spec:
+  hard:
+    persistentvolumeclaims: 5
+    services.loadbalancers: 4
+    services.nodeports: 10
