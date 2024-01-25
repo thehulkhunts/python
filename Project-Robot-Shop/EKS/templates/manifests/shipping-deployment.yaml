@@ -18,7 +18,7 @@ spec:
       containers:
       - name: shipping
         image: robotshop/rs-shipping:latest
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
         # it's Java it needs lots of memory
