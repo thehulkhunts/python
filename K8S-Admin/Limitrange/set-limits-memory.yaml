@@ -10,7 +10,7 @@ spec:
     defaultRequest: # this section defines default requests
       memory: "256Mi"
     min:  # max and min define the limit range
-      memory: "100Mi"
+      memory: "50Mi"
     max:
       memory: "1Gi"
     type: Container
