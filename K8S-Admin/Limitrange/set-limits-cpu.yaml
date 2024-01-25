@@ -10,7 +10,7 @@ spec:
     defaultRequest: # this section defines default requests
       cpu: 256m
     min:  # max and min define the limit range
-      cpu: 100m
+      cpu:  50m
     max:
       cpu: "1"
     type: Container
