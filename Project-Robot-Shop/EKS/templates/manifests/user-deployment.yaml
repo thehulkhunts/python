@@ -18,7 +18,7 @@ spec:
       containers:
       - name: user
         image: robotshop/rs-user:latest
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: IfNotPresent
         env:
           # agent networking access
           - name: INSTANA_AGENT_HOST
