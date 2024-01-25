@@ -5,4 +5,4 @@ metadata:
   namespace: robot-shop
 spec:
   hard:
-    pods: "10"
+    pods: "15"
