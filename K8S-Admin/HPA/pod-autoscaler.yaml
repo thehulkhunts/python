@@ -1,5 +1,5 @@
 apiVersion: autoscaling/v2
-kind: HorizantalPodAutoscaler
+kind: HorizontalPodAutoscaler
 metadata:
   name: hpa-web-robot-shop
   namespace: robot-shop
