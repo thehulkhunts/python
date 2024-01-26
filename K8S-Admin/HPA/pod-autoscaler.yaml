@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v2
+kind: HorizantalPodAutoscaler
+metadata:
+  name: hpa-web-robot-shop
+  namespace: robot-shop
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web
+  minReplicas: 1
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utlization
+        averageUtilization: 50
