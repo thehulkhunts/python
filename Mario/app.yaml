@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mario
+  namespace: mario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mario
+      version: v1.0.0
+  template:
+    metadata:
+      labels:
+        app: mario
+        version: v1.0.0
+    spec:
+      containers:
+      - name: super-mario
+        image: kaminskypavel/mario
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500Mi
+            
