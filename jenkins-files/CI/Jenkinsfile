@@ -1,0 +1,97 @@
+pipeline {
+    agent {
+        label 'dev-agent'
+    }
+    tools{
+        jdk 'jdk17'
+        maven 'maven'
+    }
+    environment {
+       WORKDIR = "your cloned workingdir where pom.xml file and Dockerfile exists"
+       APP_NAME = "shipping"
+       RELEASE = "1.0"
+       DOCKER_USER = "vinayjadhav"
+       DOCKER_PASS = "docker-cred"
+       IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+       IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+       JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
+    }
+    stages{
+        stage('git clone'){
+            steps{
+                git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+            }
+        }
+        stage('mavenBuild'){
+            steps{
+                sh 'cd ${WORKDIR} && mvn clean package'
+            }
+        }
+        stage('SonarAnalysis'){
+            steps{
+                script {
+                    withSonarQubeEnv(credentialsid: 'sonar-tokem'){
+                        sh ' cd ${WORKDIR} && mvn sonar:sonar '
+                    }
+                }
+            }
+        }
+        stage('QualityGates'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false credentialsId: 'sonar-token' // if you set to be true pipeline will abort quality gates if not matched to requirements
+                }
+            }
+        }
+        stage('TrivyFS Scan'){
+            steps{
+                script {
+                    sh 'trivy fs . > trivyfs.txt'
+                }
+            }
+        }
+        stage('DockerBuild & Push') {
+            steps{
+                script {
+                    docker.withRegistry('',"DOCKER_PASS"){
+                        dockerImage = docker.build "${IMAGE_NAME}"
+                    }
+                    docker.withRegistry('',"DOCKER_PASS"){
+                        dockerImage.push("${IMAGE_TAG}")
+                        dockerImage.push('latest')
+                    }
+
+                }
+            }
+        }
+        stage('TrivyImageScan'){
+            steps{
+                script{
+                    docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image vinayjadhav/shipping:latest --no-progress --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table
+                }
+            }
+        }
+         stage('Trigger CD-Pipeline'){
+            steps{
+                script {
+                     sh "curl -v -k --user vinay:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' ' ec2-65-2-187-142.ap-south-1.compute.amazonaws.com:8080/job/Reddit-Clone-CD/buildWithParameters?token=gitops-token'"
+                }
+            }
+        }
+    }
+       post{
+        always{
+            emailext attachLog: true
+            subject "'${currentBuild.result}'",
+            body: "Project: ${env.JOB_NAME}<br/>" +
+                  "Build Number: ${env.BUILD_NUMBER}<br/>" +
+                  "url: ${env.BUILD_URL}<br/>",
+            to: 'jvinay.devops@gmail.com'
+            attachmentPattern: 'trivyfs.txt, trivyimage.txt'
+        }
+    }
+}
+
+
+
+

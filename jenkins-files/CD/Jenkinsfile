@@ -1,0 +1,33 @@
+pipeline {
+    agent any 
+    stages{
+        stage("SCM Checkout") {
+            steps{
+                git branch: 'main', url: ''
+            }
+        }
+        
+        stage('updateDeploymentManifests'){
+              environment{
+                GIT_REPO = "IAC-Terraform"
+                GIT_USER = "superDevOpsGuy"
+              }
+                steps{
+                    script {
+                        withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]){
+                           sh ''' 
+                             git config --global user.name 'vinay'
+                             git config --global user.email 'jvinay@gmail.com'
+                             BUILD_NUMBER = ${BUILD_NUMBER}
+                             sed -i "s/replaceImageTag/${BUILD_NUMBER}/g"  manifests/app.yaml
+                             git add manifests/app.yaml
+                             git commit -m "modified manifest app.yaml file changed Tag"
+                             git push https://${GITHUB_TOKEN}@github.com/${GIT_USER}/${GIT_REPO} Head:main
+
+                           '''
+                    }
+                }
+            }
+        }
+    }
+}
