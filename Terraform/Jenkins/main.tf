@@ -4,7 +4,7 @@ resource "aws_instance" "jenkins" {
   user_data     = file("${path.module}/jenkins.sh")
   key_name      = "goaws"
 
-    connection {
+  connection {
     type        = "ssh"
     host        = self.public_ip
     user        = "ec2-user"
@@ -24,7 +24,7 @@ resource "aws_instance" "jenkins" {
       "/home/ec2-user/sonarqube.sh" // execute your script
 
     ]
-      
+
   }
 
 
