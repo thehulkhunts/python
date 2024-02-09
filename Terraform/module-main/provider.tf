@@ -13,11 +13,4 @@ terraform {
   }
 }
 
-terraform {
-  backend "s3" {
-    bucket = "viin-ultimate-bucket"  // name of your bucket choice
-    key = "EKS/terraform.tfstate"   // key match to the path
-    region = "us-east-1"  //region
-    dynamodb_table = "vin-ultimate-db" // name of your dynamodb table 
-  }
-}
+
