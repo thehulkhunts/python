@@ -12,12 +12,3 @@ terraform {
     }
   }
 }
-
-terraform {
-  backend "s3" {
-    bucket = "viin-ultimate-bucket"
-    key = "bastion/terraform.tfstate"
-    region = "us-east-1"
-    dynamodb_table = "vin-ultimate-db"
-  }
-}
