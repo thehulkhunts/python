@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map
+  labels:
+    app: mysql
+data: 
+  primary.cnf: |
+   # apply on primary write replica
+    [mysqld]
+    log-bin
+  replicas.cnf: |
+   # apply on replicas of mysql-replicas
+    [mysqld]
+    super-read-only
