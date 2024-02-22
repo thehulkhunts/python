@@ -4,9 +4,8 @@ metadata:
   name: manual
 provisioner: kubernetes.io/aws-ebs
 parameters:
-  type: gp3
+  type: gp2
   fstype: ext4
-  replication-type: none
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 mountOptions:
