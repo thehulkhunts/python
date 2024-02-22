@@ -9,7 +9,7 @@ data:
    # apply on primary write replica
     [mysqld]
     log-bin
-  replicas.cnf: |
+  replica.cnf: |
    # apply on replicas of mysql-replicas
     [mysqld]
     super-read-only
