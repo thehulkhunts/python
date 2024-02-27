@@ -36,7 +36,7 @@ resource "aws_instance" "bastion" {
 
 
 resource "aws_security_group" "sg-jenkins" {
-  vpc_id      = "vpc-085d437c59dcb52dd"
+  vpc_id      = "vpc-0608465a72d2c1d3c"
   description = "securitygroup-buildserver"
 
   ingress = [
